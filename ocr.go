@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/chenqinghe/baidu-ai-go-sdk/vision/ocr"
 )
@@ -27,13 +28,24 @@ type FecthData struct {
 }
 
 func main() {
+	OCR()
+	DelayClose(30)
+}
+
+//OCR ocr
+func OCR() {
+	var imagePath string
+	fmt.Println("请输入需要识别的图片路径,如d:/img/a.jpg")
+	fmt.Printf("请输入图片路径:")
+	fmt.Scanln(&imagePath)
+
 	client := ocr.NewOCRClient(APIKEY, APISECRET)
 	rs, err := client.AccurateRecognizeBasic(
-		ocr.MustFromFile("ocr2.png"),
+		ocr.MustFromFile(imagePath),
 	)
 	if err != nil {
 		rs, err = client.GeneralRecognizeBasic(
-			ocr.MustFromFile("ocr2.png"),
+			ocr.MustFromFile(imagePath),
 		)
 	}
 
@@ -53,4 +65,9 @@ func main() {
 		fmt.Println(wr.Words)
 	}
 	fmt.Println("-----------------------------------------")
+}
+
+// DelayClose delay to close the window
+func DelayClose(num int) {
+	time.Sleep(time.Duration(num) * time.Second)
 }
