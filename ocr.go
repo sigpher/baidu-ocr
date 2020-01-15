@@ -42,14 +42,15 @@ func main() {
 		log.Fatal(err)
 	}
 	data := &FecthData{}
-	fmt.Println(result)
-	fmt.Println("-----------------------------------------")
+	// fmt.Println(result)
+
 	err = json.Unmarshal([]byte(result), data)
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	fmt.Println("-----------------------------------------")
 	for _, wr := range data.WordsResult {
 		fmt.Println(wr.Words)
 	}
+	fmt.Println("-----------------------------------------")
 }
